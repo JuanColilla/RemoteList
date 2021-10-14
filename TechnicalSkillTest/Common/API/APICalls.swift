@@ -10,7 +10,10 @@ import Foundation
 class APICalls {
     
     private let session = URLSession.shared
-    private let decoder = JSONDecoder()
+    
+    static let shared = APICalls()
+    
+    private init() {}
     
     enum API_URL: String {
         case getGroups = "https://practica-slashmobility.firebaseio.com/groups.json"
@@ -28,8 +31,8 @@ class APICalls {
         
         // Parameters
         request.allHTTPHeaderFields = parameters
-//        request.allHTTPHeaderFields = ["Accept" : "application/json"]
-//        request.allHTTPHeaderFields = ["lang" : "es"]
+        //        request.allHTTPHeaderFields = ["Accept" : "application/json"]
+        //        request.allHTTPHeaderFields = ["lang" : "es"]
         
         // Call
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -44,14 +47,14 @@ class APICalls {
                 return
             }
             
-
+            
             
             // Call Result Decode
             //self.movies = try self.decoder.decode([IMDBMovie].self, from: data)
             
-            #if DEBUG
-                print(String(data: data, encoding: .utf8) as Any)
-            #endif
+#if DEBUG
+            print(String(data: data, encoding: .utf8) as Any)
+#endif
             
             completion(data)
             
